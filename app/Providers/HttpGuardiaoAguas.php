@@ -55,7 +55,34 @@ class HttpGuardiaoAguas extends ServiceProvider
         $response_municipios = Http::withToken($token)->get($endereco);
         $municipios = json_decode($response_municipios->body());
 
-  
+
         return $municipios;
+    }
+
+
+    public function codigosIbgeNascentes(?string $cdIBGEouNomeMunicipio)
+    {
+        // $uri = '';
+        if (isNull($cdIBGEouNomeMunicipio)) {
+            $uri = env('ALPHA_GUARDIAO_AGUAS_URI_MUNICIPIO') . "?Id=" . $cdIBGEouNomeMunicipio;
+        } else {
+            $uri = env('ALPHA_GUARDIAO_AGUAS_URI_MUNICIPIO');
+        }
+
+        $baseUrl = env('ALPHA_GUARDIAO_AGUAS_BASE_URL');
+        $endereco = $baseUrl . $uri;
+
+        $token =  $this->autenticar();
+        $response_municipios = Http::withToken($token)->get($endereco);
+        $municipios = json_decode($response_municipios->body());
+
+
+        foreach ($municipios as $municipio) {
+            $cdIbge =  $municipio->codigo_ibge;
+            // var_dump($cdIbge);
+        }
+
+
+        return $cdIbge;
     }
 }

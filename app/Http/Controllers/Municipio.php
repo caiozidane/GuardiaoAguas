@@ -13,6 +13,9 @@ class Municipio extends Controller
 
         $municipios = $httpGuardiao->buscarMunicipios(null);
 
-        return view('municipio', ['municipios' => $municipios]);
+        $codigosIBGE = $httpGuardiao->codigosIbgeNascentes(null);
+
+        // dd($municipios[0]->codigo_ibge);
+        return view('iframemap', ['municipios' => $municipios, 'codigosIBGE' => $codigosIBGE]);
     }
 }

@@ -10,18 +10,20 @@
 
 <body>
     <div>
+
         @foreach ($municipios as $municipio)
-        <lo>
-            <li>Entidade: {{$municipio->Entidade}}</li>
-           
-            <li>Nascentes Preservadas: {{$municipio->nascentes_preservada}}</li>
-            <li>Percentual de Preservacao: {{$municipio->perc_nascentes_preservada_municipio}}</li>
-            <li>Total Nascentes {{$municipio->nascentes_municipio}}</li>
-            <li>{{$municipio->perc_nascentes_preservada_estado}}</li>
-            <li>{{$municipio->nascentes_estado}}</li>
-            <li>{{$municipio->area_preservada}}</li>
-        </lo>
-        <br>
+            <ol>
+                <li>Entidade: {{ $municipio->Entidade }}</li>
+
+                <li>Nascentes Preservadas: {{ $municipio->nascentes_preservada }}</li>
+                <li>Percentual de Preservacao: {{ $municipio->perc_nascentes_preservada_municipio }}</li>
+                <li>Total Nascentes {{ $municipio->nascentes_municipio }}</li>
+                <li>{{ $municipio->perc_nascentes_preservada_estado }}</li>
+                <li>{{ $municipio->nascentes_estado }}</li>
+                <li>{{ $municipio->area_preservada }}</li>
+
+            </ol>
+            <br>
         @endforeach
     </div>
 </body>
