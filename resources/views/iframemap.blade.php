@@ -47,57 +47,52 @@
 
     <div class="modal">
         <div class="content">
-            <h1>clicou aqui</h1>
+            <p id="detalhes">
+            <h1>Dados do munipio</h1>
+            <h2 id="idmunipio"></h2>
+            </p>
         </div>
     </div>
 
-
-    <h2>todos municipios com nascentes cadastradas</h2>
-    <div>
-        @if ($municipios)
-            @foreach ($municipios as $municipio)
-                <ol>
-                    <li>Entidade: {{ $municipio->Entidade }}</li>
-
-                    <li>Nascentes Preservadas: {{ $municipio->nascentes_preservada }}</li>
-                    <li>Percentual de Preservacao: {{ $municipio->perc_nascentes_preservada_municipio }}</li>
-                    <li>Total Nascentes {{ $municipio->nascentes_municipio }}</li>
-                    <li>{{ $municipio->perc_nascentes_preservada_estado }}</li>
-                    <li>{{ $municipio->nascentes_estado }}</li>
-                    <li>{{ $municipio->area_preservada }}</li>
-
-                </ol>
-                <br>
-            @endforeach
-        @endif
-
-    </div>
 </body>
 
-
 @php
-    $municipios2 = json_encode($municipios);
+    $municipios2 = $municipios;
 @endphp
 
+<script>
+    var municipios = {{ Js::from($municipios2) }}
 
-<script type="text/javascript">
-    (function(win, doc) {
-        'use strict';
-
-        var municipios;
-        municipios = <?php echo $municipios2; ?>;
-
-        for (i = 0, i < municipios.length; i++) {
-            mun = municipios[i].codigo_ibge;
-            console.log(mun);
-            cdibge[i] = '#MT-' + mun;
-            console.log(cdibge[i]);
-
+    for (i = 0; i < municipios.length; i++) {
+        mun = municipios[i].codigo_ibge
+        mun = 'MT-' + mun
+        if (document.getElementById(mun) != null) {
+            document.getElementById(mun).style.fill = '#01a18e'
         }
+    }
 
-    })(window, document);
+    const switchModal = () => {
+        const modal = document.querySelector('.modal')
+        const actualStyle = modal.style.display
+        let id = event.target.id
+
+        if (actualStyle == 'block') {
+            modal.style.display = 'none'
+        } else {
+            modal.style.display = 'block'
+            modal.style.color = '#00000'
+            document.getElementById("idmunipio").innerHTML = mun[i]
+        }
+    }
+
+    const btn = document.querySelector('#svg2').addEventListener('click', switchModal);
+
+    window.onclick = function(event) {
+        const modal = document.querySelector('.modal');
+        if (event.target == modal) {
+            switchModal()
+        }
+    }
 </script>
-
-
 
 </html>
